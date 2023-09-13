@@ -5,9 +5,9 @@ import { Model } from "mongoose";
 
 @Injectable()
 export class ProductsService {
-    private products: Product[] = [];
+    // private products: Product[] = [];
 
-    constructor(@InjectModel('Product') private readonly productModel: Model<Product>) { }
+    constructor(@InjectModel('Products') private readonly productModel: Model<Product>) { }
 
     async insertProduct(title: string, desc: string, price: number) {
         // const prodId = Math.random().toString();
@@ -21,12 +21,16 @@ export class ProductsService {
 
     async getProducts() {
         const products = await this.productModel.find().exec();
+        console.log(products);
         //    console.log(result);
         return products as Product[];
+        // return products as any;
+        
     }
 
     async getSingleProduct(productId: string) {
         const product = await this.findProduct(productId)
+
         return {
             id: product.id,
             title: product.title,
